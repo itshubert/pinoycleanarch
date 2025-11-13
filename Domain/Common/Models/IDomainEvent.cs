@@ -4,4 +4,5 @@ namespace PinoyCleanArch.Domain.Common.Models;
 
 public interface IDomainEvent : INotification
 {
+    DateTimeOffset Timestamp { get; }
 }

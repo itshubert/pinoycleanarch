@@ -1,3 +1,4 @@
+using System.Reflection;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using PinoyCleanArch.Infrastructure.Interceptors;
@@ -6,10 +7,15 @@ namespace PinoyCleanArch;
 
 public static class DependencyInjectionRegister
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services, params Assembly[] assemblies)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
-        services.AddMappings();
+        // If no assemblies provided, scan all loaded assemblies to find handlers
+        var assembliesToScan = assemblies.Length > 0
+            ? assemblies.Concat(new[] { typeof(DependencyInjectionRegister).Assembly }).Distinct().ToArray()
+            : AppDomain.CurrentDomain.GetAssemblies().ToArray();
+
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assembliesToScan));
+        services.AddMappings(assembliesToScan);
         return services;
     }
 
@@ -20,10 +26,10 @@ public static class DependencyInjectionRegister
         return services;
     }
 
-    private static IServiceCollection AddMappings(this IServiceCollection services)
+    private static IServiceCollection AddMappings(this IServiceCollection services, Assembly[] assemblies)
     {
         var config = TypeAdapterConfig.GlobalSettings;
-        config.Scan(AppDomain.CurrentDomain.GetAssemblies());
+        config.Scan(assemblies);
 
         services.AddSingleton(config);
         services.AddMapster();
