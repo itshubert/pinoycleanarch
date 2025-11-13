@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write # Grant write permission for packages
+      contents: read  # Grant read permission for repository contents
 
     steps:
     - uses: actions/checkout@v4
