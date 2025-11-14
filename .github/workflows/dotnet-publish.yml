@@ -26,9 +26,9 @@ jobs:
 
     - name: Push to GitHub Packages
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
       run: |
         dotnet nuget push "./package-output/*.nupkg" \
-          --source "https://nuget.pkg.github.com/itshubert/index.json" \
-          --api-key $GITHUB_TOKEN \
+          --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+          --api-key $NUGET_AUTH_TOKEN \
           --skip-duplicate
