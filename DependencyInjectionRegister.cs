@@ -37,3 +37,6 @@ public static class DependencyInjectionRegister
         return services;
     }
 }
+
+// TODO: AddValidatorsFromAssembly
+// TODO: services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
