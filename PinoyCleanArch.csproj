@@ -4,8 +4,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>PinoyCleanArch</PackageId>
-    <Version>1.0.0</Version>
-    <NuGetVersion>1.0.0</NuGetVersion>
+    <Version>1.0.1</Version>
+    <NuGetVersion>1.0.1</NuGetVersion>
     <Authors>Hubert Dumas</Authors>
     <PackageTags>CleanArchitecture;DDD;CQRS;Mediator</PackageTags>
   </PropertyGroup>
